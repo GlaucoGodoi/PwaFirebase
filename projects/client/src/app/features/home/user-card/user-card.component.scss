@@ -1,0 +1,25 @@
+div{
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 50px;    
+    padding: 3px;
+}
+
+img {    
+    border: 2px solid gray;
+    border-radius: 50%;
+    padding: 5px;
+    height: 70px;
+    width: 70px;
+}
+
+p {
+    margin: 0;
+    width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;    
+}

@@ -1,0 +1,6 @@
+<div class="actions-theme actions-holder">
+    <button color="warn" mat-button [disabled]="isBusy" (click)="handleCancel()">Cancel</button>
+    <button color="primary" mat-raised-button [disabled]="isBusy || !allowSave" (click)="handleSave()">Save</button>
+</div>
+
+<mat-progress-bar [ngStyle]="{'visibility': (isBusy?'visible':'hidden')}" mode="indeterminate"></mat-progress-bar>

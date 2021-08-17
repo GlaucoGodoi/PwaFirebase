@@ -1,0 +1,9 @@
+<mat-form-field appearance="fill">
+    <mat-label>{{label}}</mat-label>
+    <textarea #thisField [placeholder]="label" matInput [formControl]="theControl" [maxLength]="localMaxLen"[required]="required" [rows]="localRows"></textarea>
+    <mat-hint *ngIf="theControl.valid" align="start">{{hint}}</mat-hint>
+    <mat-hint *ngIf="localMaxLen && localMaxLen!==maxValue" align="end">{{thisField.value?.length}}/{{localMaxLen}}</mat-hint>
+    <mat-hint *ngIf="theControl.invalid && theControl.errors?.required" class="error" align="start">This field is required</mat-hint>
+    <mat-hint *ngIf="theControl.invalid && theControl.errors?.minlength" class="error" align="start">Minimum {{localMinLen || '??'}} characters</mat-hint>
+    <mat-hint *ngIf="theControl.invalid && theControl.errors?.email" class="error" align="start">This e-mail is invalid</mat-hint>
+</mat-form-field>

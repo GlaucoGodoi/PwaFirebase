@@ -1,0 +1,49 @@
+.holder{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+.data-part mat-form-field{
+    width: 100%;    
+}
+
+.date-part{
+    /* display: flex; */
+    flex-grow: 1;
+    min-width: 130px;
+}
+
+.time-part{
+    display: flex;
+    /* flex-grow: 4; */
+    flex-shrink: 1;
+    justify-content: flex-start;
+    align-items: center;
+    
+}
+
+.hour{
+    width: 55px;    
+}
+.separator{
+    position: static;
+    width: 0px;    
+    left: 75px;    
+}
+
+.minute{
+    width: 55px;
+}
+
+.hint-holder{   
+    position: relative;
+    overflow-x: visible;
+    white-space: nowrap;
+    
+    top: -17px;
+    left: 5px;
+    font-size: 10.5px;
+    font-weight: 400;
+}

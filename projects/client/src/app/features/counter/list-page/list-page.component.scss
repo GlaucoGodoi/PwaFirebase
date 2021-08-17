@@ -1,0 +1,24 @@
+mat-card{
+    min-height: 70vh;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.list-holder{
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
+.mat-list-item{
+    height: 100px;
+}
+
+h2{
+    text-align: center;
+}
+
+.actions{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

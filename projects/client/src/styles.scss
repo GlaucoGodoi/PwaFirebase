@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+@use '~@angular/material' as mat;
+@include mat.core();
+@import url("./local-theme.scss");
+@import './variables.scss';
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color:$back-color;
+}
+
+.curvy {
+    border-bottom-right-radius: 50px;
+}
+
+.sticky-top {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.container {
+    padding: 10px;
+    height: calc(100vh - 76px);
+}
+
+.user-toolbar.mat-toolbar-single-row {
+    padding: 0!important;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.main-menu.mat-nav-list{
+    padding-top:30px;
+}
+
+.active-link{
+    font-weight: bold;
+    background-color: $back-color
+}
+
+.main-toolbar{
+    background-color: $back-color;
+}
