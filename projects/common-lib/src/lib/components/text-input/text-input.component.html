@@ -1,8 +1,15 @@
 <mat-form-field appearance="fill">
     <mat-label>{{label}}</mat-label>
-    <input #thisField matInput [formControl]="theControl" [maxLength]="localMaxLen"[required]="localRequired" [readonly]="localReadonly">
+    <input #thisField matInput 
+    [formControl]="theControl" 
+    [minlength]="localMinLen" 
+    [maxlength]="localMaxLen"
+    [required]="localRequired" 
+    [readonly]="localReadonly"
+    [type]="localInputType"    
+    >
 
-    <mat-hint *ngIf="theControl.valid || theControl.pristine" align="start">{{hint}}</mat-hint>
+    <mat-hint *ngIf="theControl?.valid || theControl?.pristine" align="start">{{hint}}</mat-hint>
     <mat-hint *ngIf="localMaxLen && localMaxLen!==maxValue" align="end">{{thisField.value?.length}}/{{localMaxLen}}</mat-hint>
     <mat-hint *ngIf="!theControl.pristine && theControl.invalid && theControl.errors?.required" class="error" align="start">This field is required</mat-hint>
     <mat-hint *ngIf="!theControl.pristine && theControl.invalid && theControl.errors?.minlength" class="error" align="start">Minimum {{localMinLen || '??'}} characters</mat-hint>

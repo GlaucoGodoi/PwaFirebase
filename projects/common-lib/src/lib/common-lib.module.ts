@@ -13,27 +13,38 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatLuxonDateModule, MAT_LUXON_DATE_ADAPTER_OPTIONS, LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { MatSelectModule } from '@angular/material/select';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-
+import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { HelperService } from '../lib/services/helper.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [    
-    SaveCancelComponent, TextInputComponent, TextAreaInputComponent, DateInputComponent
+    SaveCancelComponent, TextInputComponent, TextAreaInputComponent, DateInputComponent, 
+    AlertDialogComponent
   ],
   imports: [
     CommonModule,
     MatButtonModule,
     MatProgressBarModule,
-    MatInputModule, MatSelectModule,
-    MatFormFieldModule, MatDatepickerModule, MatLuxonDateModule,
+    MatInputModule, MatSelectModule, MatDialogModule, MatCardModule,
+    MatFormFieldModule, MatDatepickerModule, MatLuxonDateModule, MatSnackBarModule,
     ReactiveFormsModule
   ],
   exports: [
-    SaveCancelComponent, TextInputComponent, TextAreaInputComponent, DateInputComponent
+    SaveCancelComponent, TextInputComponent, TextAreaInputComponent, DateInputComponent,
+    AlertDialogComponent
+  ],
+  entryComponents: [
+    AlertDialogComponent
   ],
   providers: [
     {provide: DateAdapter, useClass: LuxonDateAdapter},
     {provide: MAT_DATE_LOCALE, useValue: 'pt-PT'},
-    {provide: MAT_LUXON_DATE_ADAPTER_OPTIONS, useValue: {useUTC: 'false'}}
+    {provide: MAT_LUXON_DATE_ADAPTER_OPTIONS, useValue: {useUTC: 'false'}},
+    // { provide: MatDialogRef, useValue: {} }
+    HelperService
   ]
 })
 export class CommonLibModule { }

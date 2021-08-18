@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ListReadingsPageComponent } from './list-readings-page/list-readings-page.component';
 import { EditCounterPageComponent } from './edit-counter-page/edit-counter-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     MatCardModule, MatButtonModule, MatListModule, MatIconModule,
     CommonLibModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule, MatSnackBarModule,
     RouterModule.forChild([      
       { path: 'editcounter', component: EditCounterPageComponent },
       { path: 'readings', component: ListReadingsPageComponent },

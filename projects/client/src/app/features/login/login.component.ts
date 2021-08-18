@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService, Credentials } from 'common-lib';
+import {  AuthService, Credentials } from 'common-lib';
 
 @Component({
   selector: 'cli-login',
@@ -53,10 +53,9 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authSvc: AuthService
-  
   ) { }
 
-  ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
 
     this.localForm = this.formBuilder.group({
       email: ['', [Validators.email, Validators.required]],

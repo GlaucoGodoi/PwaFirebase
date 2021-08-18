@@ -2,17 +2,18 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    
 }
 
-.data-part mat-form-field{
+.date-part mat-form-field{
     width: 100%;    
+    max-width: 50px;
 }
 
 .date-part{
     /* display: flex; */
     flex-grow: 1;
-    min-width: 130px;
+    
 }
 
 .time-part{
@@ -27,6 +28,7 @@
 .hour{
     width: 55px;    
 }
+
 .separator{
     position: static;
     width: 0px;    
@@ -41,7 +43,6 @@
     position: relative;
     overflow-x: visible;
     white-space: nowrap;
-    
     top: -17px;
     left: 5px;
     font-size: 10.5px;

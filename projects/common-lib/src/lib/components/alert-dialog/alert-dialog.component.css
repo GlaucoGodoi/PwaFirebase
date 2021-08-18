@@ -1,0 +1,21 @@
+.mat-card{
+    min-width: 280px;
+}
+
+.error-title {
+    background-color: red;
+    color: white;
+    padding-top: 3px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+mat-card-subtitle {
+    color: white;
+}
+
+.actions-bar{
+    display: flex;
+    justify-content: space-around;
+}
+

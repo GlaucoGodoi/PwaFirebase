@@ -18,7 +18,7 @@ import { Counter, CountersService } from 'common-lib';
         
         <a mat-icon-button color="primary" [routerLink]="['readings']" (click)="selectCounter(counter)"><mat-icon>search</mat-icon></a>
         <a mat-icon-button color="primary" [routerLink]="['editcounter']" (click)="selectCounter(counter)"><mat-icon>edit</mat-icon></a>
-        <a mat-icon-button color="primary" [routerLink]="['addreading']" (click)="selectCounter(counter)"><mat-icon>playlist_add</mat-icon></a>
+        <a mat-icon-button color="primary" [routerLink]="['/home/readings/editreading']" (click)="selectCounter(counter)"><mat-icon>playlist_add</mat-icon></a>
         
       </div>
     </div>

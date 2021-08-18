@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {CountersService, Counter} from 'common-lib';
 
 @Component({
@@ -24,7 +25,7 @@ import {CountersService, Counter} from 'common-lib';
       </mat-card-content>
       <mat-card-actions class="actions">                
         <a mat-button [routerLink]="[ '/home']">Back</a>
-        <button mat-mini-fab><mat-icon>add</mat-icon></button>
+        <button mat-mini-fab (click)="addNewHandler()"><mat-icon>add</mat-icon></button>
       </mat-card-actions>
     </mat-card>
 
@@ -38,14 +39,19 @@ export class ListPageComponent implements OnInit {
 
   constructor(
     private countersSvc: CountersService,
+    private router: Router,    
     private cd: ChangeDetectorRef
   ) { }
 
   public async ngOnInit(): Promise<void> {
-    this.counters = await this.countersSvc.getAllCounters();
-    console.log(this.counters);
+    this.counters = await this.countersSvc.getAllCounters();    
     this.cd.detectChanges();
     
+  }
+
+  public addNewHandler(): void {  
+    this.countersSvc.selectedCounter = null;
+    this.router.navigate(['/home/counters/editcounter']);
   }
 
   public trackByMethod(index: number, item: Counter): string {

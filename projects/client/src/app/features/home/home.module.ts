@@ -28,6 +28,7 @@ import { UserCardComponent } from './user-card/user-card.component';
           path: '', component: HomepageComponent, children: [
             { path: 'account', loadChildren: () => import('../account/account.module').then(m => m.AccountModule) },
             { path: 'counters', loadChildren: () => import('../counter/counter.module').then(m => m.CounterModule) },
+            { path: 'readings', loadChildren: () => import('../reading/reading.module').then(m => m.ReadingModule) },
           ]
         },
 
