@@ -17,8 +17,12 @@ import { ChangeDetectorRef } from '@angular/core';
         <mat-card-content>
         <fieldset [formGroup]="localForm">
           
+          <div class="camera-button">
+            <button color="primary" (click)="handleCamera()" mat-raised-button>Capture value with camera</button>
+          </div>
           <lib-text-input [formElement]="value" [inputType]="type" hint="The value that will be added to historic data" label="New value" required="true"></lib-text-input>            
           <lib-date-input formControlName="readingDate" title="Reading date" usetime="true" usetenminutes="true"  ></lib-date-input>
+
         </fieldset>
         </mat-card-content>
         <mat-card-actions>
@@ -93,6 +97,13 @@ export class EditReadingPageComponent implements OnInit {
       this.helperSvc.showSnackBar('Reading saved');
       this.location.back();
     }
+  }
+
+  public async handleCamera(): Promise<void> {
+    const response = await this.helperSvc.displayCamera()
+
+    console.log(response);
+    
   }
 
 }

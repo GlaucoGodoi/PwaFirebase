@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -18,18 +18,22 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { HelperService } from '../lib/services/helper.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CameraInputComponent } from './components/camera-input/camera-input.component';
+import { WebcamModule } from 'ngx-webcam';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [    
     SaveCancelComponent, TextInputComponent, TextAreaInputComponent, DateInputComponent, 
-    AlertDialogComponent
+    AlertDialogComponent, CameraInputComponent
   ],
   imports: [
     CommonModule,
     MatButtonModule,
     MatProgressBarModule,
-    MatInputModule, MatSelectModule, MatDialogModule, MatCardModule,
+    MatInputModule, MatSelectModule, MatDialogModule, MatCardModule, MatToolbarModule,
     MatFormFieldModule, MatDatepickerModule, MatLuxonDateModule, MatSnackBarModule,
+    WebcamModule,
     ReactiveFormsModule
   ],
   exports: [
@@ -43,7 +47,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     {provide: DateAdapter, useClass: LuxonDateAdapter},
     {provide: MAT_DATE_LOCALE, useValue: 'pt-PT'},
     {provide: MAT_LUXON_DATE_ADAPTER_OPTIONS, useValue: {useUTC: 'false'}},
-    // { provide: MatDialogRef, useValue: {} }
     HelperService
   ]
 })

@@ -1,0 +1,14 @@
+.holder{
+    width: 100vw;
+    height: 400px
+}
+
+.actions-theme{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+webcam{
+    margin: 0 auto;
+}

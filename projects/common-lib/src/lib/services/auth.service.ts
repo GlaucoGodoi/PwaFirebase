@@ -9,7 +9,7 @@ import { UserService } from './user.service';
 export class AuthService {
 
   public isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public userName: BehaviorSubject<string> = new BehaviorSubject<string>('John Doe abcd efg hijk');
+  public userName: BehaviorSubject<string> = new BehaviorSubject<string>('John Doe abcd efg');
   public userPicture: BehaviorSubject<string> = new BehaviorSubject<string>('../../../assets/images/UnknownUser.svg');
   public get userId(): string{
     return this.currentUserId;

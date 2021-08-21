@@ -1,10 +1,14 @@
 {
     "cSpell.words": [
+        "Abelardo",
+        "Barbosa",
         "Eletricidade",
         "Sidenav",
+        "UNPATCHED",
         "adapter",
         "addreading",
         "autofilled",
+        "classlist",
         "date",
         "datepicker",
         "describedby",
@@ -21,8 +25,11 @@
         "ngsw",
         "options",
         "packagr",
+        "prefetch",
+        "subdir",
         "tinput",
         "usetenminutes",
-        "usetime"
+        "usetime",
+        "webp"
     ]
 }
