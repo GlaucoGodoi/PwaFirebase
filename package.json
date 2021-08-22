@@ -7,7 +7,7 @@
     "build:lib": "ng build",
     "watch": "ng build --watch --configuration development",
     "client:dev": "ng serve --project client --host=0.0.0.0 -o",
-    "client:sw": "ng build --prod --project client && npx http-server -p 8080 -c-1 dist/client"
+    "client:sw": "ng build --configuration production --project client && npx http-server -p 8080 -c-1 dist/client"
   },
   "private": true,
   "dependencies": {

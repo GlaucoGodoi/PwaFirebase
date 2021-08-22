@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonLibModule } from 'common-lib';
 import { ReactiveFormsModule } from '@angular/forms';
+import { WebcamModule } from 'ngx-webcam';
 
 
 
@@ -18,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatCardModule, MatButtonModule,
     CommonLibModule,
     ReactiveFormsModule,
+    WebcamModule,
     RouterModule.forChild([
       { path: 'editreading', component: EditReadingPageComponent }
     ])

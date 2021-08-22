@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { GenericResponse } from '../../dto/generic-response';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 
@@ -28,6 +30,10 @@ export class CameraInputComponent implements OnInit {
   // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
   private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
 
+  constructor(
+    public dialogRef: MatDialogRef<CameraInputComponent>
+  ) {}
+
   public ngOnInit(): void {
     WebcamUtil.getAvailableVideoInputs()
       .then((mediaDevices: MediaDeviceInfo[]) => {
@@ -37,6 +43,16 @@ export class CameraInputComponent implements OnInit {
 
   public triggerSnapshot(): void {
     this.trigger.next();
+  }
+
+  public close(): void{
+    this.dialogRef.close(
+      {
+        data: null,
+        success: false
+
+      } as GenericResponse<WebcamImage | null>
+    );
   }
 
   public toggleWebcam(): void {
@@ -55,8 +71,13 @@ export class CameraInputComponent implements OnInit {
   }
 
   public handleImage(webcamImage: WebcamImage): void {
-    console.info('received webcam image', webcamImage);
+
     this.webcamImage = webcamImage;
+
+    this.dialogRef.close({
+      data : webcamImage,
+      success: webcamImage!==null
+    } as GenericResponse<WebcamImage | null>);
   }
 
   public cameraWasSwitched(deviceId: string): void {

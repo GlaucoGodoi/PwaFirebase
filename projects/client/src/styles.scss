@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @use '~@angular/material' as mat;
 @include mat.core();
-@import url("./local-theme.scss");
+@import "./local-theme.scss";
 @import './variables.scss';
 
 * {
@@ -52,13 +52,26 @@ body {
 
 /*This allow the date time picker show in the correct way*/
 .mat-form-field-infix{
-    width: 100px!important;
+    width: 100px!important;    
 }
 
 .alert-dialog-container .mat-dialog-container{
-    padding: 0;
+    padding: 0;    
 }
 
 .camera-dialog-container .mat-dialog-container{
     padding: 0!important;
+    max-width: 360px!important;
+}
+
+video{
+    width: 100%!important;
+    height: 280px!important;    
+    
+}
+webcam-wrapper{
+    width: 90%!important;
+    max-width: 360px!important;
+    height: 350px!important;
+    margin: 0 auto !important;
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { GenericResponse } from '../dto/generic-response';
+import { WebcamImage } from 'ngx-webcam';
 import { AlertDialogComponent } from '../components/alert-dialog/alert-dialog.component';
 import { CameraInputComponent } from '../components/camera-input/camera-input.component';
 import { AlertData } from '../dto/alert-data';
@@ -33,8 +35,8 @@ export class HelperService {
   }
 
 
-  public async displayCamera(): Promise<AlertResponseEnum> {
-    return new Promise<AlertResponseEnum>((resolve, reject) => {
+  public async displayCamera(): Promise<GenericResponse<WebcamImage|null>> {
+    return new Promise<GenericResponse<WebcamImage|null>>((resolve, reject) => {
       const dialogRef = this.dialog.open(CameraInputComponent, {        
         hasBackdrop: true,
         
@@ -43,7 +45,7 @@ export class HelperService {
         panelClass: 'camera-dialog-container',
       } as MatDialogConfig<CameraInputComponent>);
 
-      dialogRef.afterClosed().subscribe((result: AlertResponseEnum) => {
+      dialogRef.afterClosed().subscribe((result: GenericResponse<WebcamImage| null>) => {
         resolve(result);
       });
     });

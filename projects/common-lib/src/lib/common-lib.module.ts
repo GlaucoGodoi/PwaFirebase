@@ -21,6 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CameraInputComponent } from './components/camera-input/camera-input.component';
 import { WebcamModule } from 'ngx-webcam';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [    
@@ -33,6 +34,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatProgressBarModule,
     MatInputModule, MatSelectModule, MatDialogModule, MatCardModule, MatToolbarModule,
     MatFormFieldModule, MatDatepickerModule, MatLuxonDateModule, MatSnackBarModule,
+    MatIconModule,
     WebcamModule,
     ReactiveFormsModule
   ],

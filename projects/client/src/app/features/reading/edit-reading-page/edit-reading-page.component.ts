@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertData, CountersService, HelperService, InputTypeEnum, Reading, ReadingService } from 'common-lib';
+import { AlertData, GenericResponse, HelperService, InputTypeEnum, Reading, ReadingService } from 'common-lib';
 import { Location } from '@angular/common'
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
+import { WebcamImage } from 'ngx-webcam';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'cli-edit-reading-page',
@@ -20,6 +22,9 @@ import { ChangeDetectorRef } from '@angular/core';
           <div class="camera-button">
             <button color="primary" (click)="handleCamera()" mat-raised-button>Capture value with camera</button>
           </div>
+
+          <img style="width: 100%;" [src]="imageAsUrl|async"/>
+
           <lib-text-input [formElement]="value" [inputType]="type" hint="The value that will be added to historic data" label="New value" required="true"></lib-text-input>            
           <lib-date-input formControlName="readingDate" title="Reading date" usetime="true" usetenminutes="true"  ></lib-date-input>
 
@@ -41,6 +46,7 @@ export class EditReadingPageComponent implements OnInit {
   public localForm!: FormGroup;
   public type = InputTypeEnum.NUMBER;
   public isBusy = false;
+  public imageAsUrl: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(
     private readingSvc: ReadingService,
@@ -100,8 +106,11 @@ export class EditReadingPageComponent implements OnInit {
   }
 
   public async handleCamera(): Promise<void> {
-    const response = await this.helperSvc.displayCamera()
 
+    const response = await this.helperSvc.displayCamera();
+    if(response.success && response.data) {
+      this.imageAsUrl.next(response.data.imageAsDataUrl);
+    }
     console.log(response);
     
   }
