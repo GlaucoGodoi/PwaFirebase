@@ -1,0 +1,23 @@
+.android-prompt .mat-toolbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.android-row{
+    display: flex; width: 100%; justify-content: space-between;
+}
+.ios-install-header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ios-steps{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 15px;
+}

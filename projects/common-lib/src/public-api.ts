@@ -26,4 +26,5 @@ export * from './lib/components/text-input/text-input.component';
 export * from './lib/components/text-area-input/text-area-input.component';
 export * from './lib/components/date-input/date-input.component';
 export * from './lib/components/alert-dialog/alert-dialog.component';
+export * from './lib/components/install-prompt/install-prompt.component';
 

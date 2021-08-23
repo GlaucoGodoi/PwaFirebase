@@ -22,11 +22,12 @@ import { CameraInputComponent } from './components/camera-input/camera-input.com
 import { WebcamModule } from 'ngx-webcam';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { InstallPromptComponent } from './components/install-prompt/install-prompt.component';
 
 @NgModule({
   declarations: [    
     SaveCancelComponent, TextInputComponent, TextAreaInputComponent, DateInputComponent, 
-    AlertDialogComponent, CameraInputComponent
+    AlertDialogComponent, CameraInputComponent, InstallPromptComponent
   ],
   imports: [
     CommonModule,
@@ -40,10 +41,10 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   exports: [
     SaveCancelComponent, TextInputComponent, TextAreaInputComponent, DateInputComponent,
-    AlertDialogComponent
+    AlertDialogComponent, InstallPromptComponent
   ],
   entryComponents: [
-    AlertDialogComponent
+    AlertDialogComponent, InstallPromptComponent
   ],
   providers: [
     {provide: DateAdapter, useClass: LuxonDateAdapter},

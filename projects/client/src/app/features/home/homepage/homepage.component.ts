@@ -3,6 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { MatDrawer } from '@angular/material/sidenav';
+import { AuthService } from 'common-lib';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cli-homepage',
@@ -19,6 +21,7 @@ import { MatDrawer } from '@angular/material/sidenav';
           <a mat-list-item [routerLink]="[ '/home/account' ]" routerLinkActive="active-link">My account</a>
           <a mat-list-item [routerLink]="[ '/home/counters' ]" routerLinkActive="active-link">My counters</a>          
           <a mat-list-item href="#">About</a>
+          <button class="logout-button" (click)="logout()" color="warn" mat-raised-button>Logout</button>
         </mat-nav-list>
         <div class="version-holder mat-caption">version: ???</div>
       </mat-sidenav>
@@ -60,8 +63,15 @@ export class HomepageComponent {
   @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
 
   constructor(
+    private authSvc: AuthService,
     private breakpointObserver: BreakpointObserver,
+    private router: Router
   ) {
+  }
+
+  public async logout(): Promise<void> {
+    await this.authSvc.logout()
+    this.router.navigate(['']);
   }
 
   public hideMenu(): void {

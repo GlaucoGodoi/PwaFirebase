@@ -8,6 +8,7 @@
         "adapter",
         "addreading",
         "autofilled",
+        "beforeinstallprompt",
         "cameraswitch",
         "classlist",
         "date",
@@ -17,8 +18,10 @@
         "editcounter",
         "editreading",
         "editrounter",
+        "gmail",
         "inputmode",
         "localdisabled",
+        "login",
         "luxon",
         "mat",
         "maxlength",
@@ -31,6 +34,7 @@
         "tinput",
         "usetenminutes",
         "usetime",
+        "using",
         "webp"
     ]
 }

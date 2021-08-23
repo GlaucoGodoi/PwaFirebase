@@ -114,6 +114,12 @@ export class DateInputComponent implements ControlValueAccessor, MatFormFieldCon
       this.hour.setValue(newDate?.getHours());
       if (this.localUseTen) {
         this.minute.setValue(this.getNearestTen(newDate));
+        if(newDate?.getMinutes()!==0 && this.minute.value===0){
+            this.hour.setValue(this.hour.value+1);
+            if(this.hour.value>=23){
+                this.hour.setValue(0);
+            }
+        }
       } else {
         this.minute.setValue(newDate?.getMinutes());
       }

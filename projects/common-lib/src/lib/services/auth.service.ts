@@ -20,7 +20,6 @@ export class AuthService {
   constructor(
     private userSvc: UserService
   ) { 
-
   }
 
   public async login(credentials: Credentials): Promise<void> {
@@ -31,6 +30,17 @@ export class AuthService {
     this.userPicture.next(currentUser.pictureUrl);
 
     this.isAuthenticated.next(true); 
+  }
+
+  public async logout():Promise<void>{
+    return new Promise<void>(resolve => {
+      setTimeout(() => {
+        resolve();
+        this.userName.next('');
+        this.userPicture.next('');
+        this.isAuthenticated.next(false);
+      }, 1000);
+    });
   }
 
 }

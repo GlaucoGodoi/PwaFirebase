@@ -1,0 +1,30 @@
+<mat-toolbar *ngIf="data.mobileType === 'android'" color="default" class="android-prompt">
+    <mat-toolbar-row>
+        <span>You can install this application</span>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="actions-theme android-row">
+        <button mat-raised-button (click)="installPwa()" color="primary">
+            <mat-icon>get_app</mat-icon>
+            Add to Home screen
+        </button>
+        <button mat-mini-fab (click)="close()" color="warn">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div *ngIf="data.mobileType === 'ios'" class="ios-prompt">
+    <div class="ios-install-header">
+        <span>This app can be installed</span>
+        <button class="close-ios-inv" mat-button color="primary" (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div>To install on your device tap the Share button and then 'Add to Home screen'</div>
+    <div class="ios-steps">
+        <mat-icon>ios_share</mat-icon>
+        <mat-icon>navigate_next</mat-icon>
+        <mat-icon class="material-icons-outlined">add_box</mat-icon>
+    </div>
+</div>

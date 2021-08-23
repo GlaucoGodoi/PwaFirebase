@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {  AuthService, Credentials } from 'common-lib';
+import { PwaService } from '../../services/pwa.service';
 
 @Component({
   selector: 'cli-login',
@@ -33,7 +34,7 @@ import {  AuthService, Credentials } from 'common-lib';
           </div>
           <p>Or you can use your google account</p>
           <div class="action-login">
-            <button type="button" color="warn" mat-raised-button>Google</button>
+            <button type="button" (click)="loginUsingGmail()" color="warn" mat-raised-button>Google</button>
           </div>
           </mat-card-content>
           <!-- <mat-card-actions>
@@ -52,7 +53,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authSvc: AuthService
+    private authSvc: AuthService,
+    private pwaSvc: PwaService
   ) { }
 
   public async ngOnInit(): Promise<void> {
@@ -64,8 +66,13 @@ export class LoginComponent implements OnInit {
   }
 
   public async loginUsingCredentials(): Promise<void> {
-    await this.authSvc.login(this.localForm.getRawValue() as Credentials)
-    this.router.navigate(['/home'])    
+    await this.authSvc.login(this.localForm.getRawValue() as Credentials);
+    this.router.navigate(['/home']);
+    this.pwaSvc.showDialog();
+  }
+
+  public async loginUsingGmail(): Promise<void> {
+    this.pwaSvc.showDialog();
   }
 
   public get email():  AbstractControl | null {

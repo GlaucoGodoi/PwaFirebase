@@ -61,7 +61,7 @@ export class EditReadingPageComponent implements OnInit {
     
     this.localForm = this.fb.group({
       readingDate: [new Date(), [Validators.required]],
-      value: [0, [Validators.required]]
+      value: [null, [Validators.required]]
     });
 
     this.counterName = this.readingSvc.currentCounterName;
