@@ -14,6 +14,9 @@ export class SaveCancelComponent{
   @Input()
   public allowSave: boolean = false;
 
+  @Input()
+  public allowCancel: boolean = true;
+
   @Output() 
   public onCancel = new EventEmitter<void>();
 

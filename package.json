@@ -2,12 +2,18 @@
   "name": "solution",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
+    "ng": "ng",    
     "start": "ng serve",
     "build:lib": "ng build",
+    "deploy:site": "ng build --configuration production --client && deploy --only hosting",
+    "deploy:firestore": "deploy --only firestore",
+    "deploy:functions":"deploy --only functions",
     "watch": "ng build --watch --configuration development",
     "client:dev": "ng serve --project client --host=0.0.0.0 -o",
-    "client:sw": "ng build --configuration production --project client && npx http-server -p 8080 -c-1 dist/client"
+    "client:sw": "ng build --configuration production --source-map --project client && npx http-server -p 8070 -c-1 dist/client",
+    "set-cred-to-prod": "export GOOGLE_APPLICATION_CREDENTIALS=\"/Users/glaucogodoi/Work/training/pwa/code/emulators/solution/utilities-counter-firebase-adminsdk-g0kvw-14b1eecf64.json\"",
+    "start-emulators": "firebase emulators:start ",
+    "start:env":"./devenv.sh"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +30,7 @@
     "@angular/pwa": "^12.1.4",
     "@angular/router": "~12.1.1",
     "@angular/service-worker": "~12.1.1",
+    "firebase": "^9.1.0",
     "luxon": "^2.0.2",
     "ngx-webcam": "^0.3.2",
     "rxjs": "~6.6.0",

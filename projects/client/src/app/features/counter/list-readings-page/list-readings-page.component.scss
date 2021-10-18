@@ -1,15 +1,28 @@
 .reading-row {
     width: 100%;
     display: flex;
+    flex-flow: row nowrap;
     justify-content: space-between;    
+    align-items: center;
+    column-gap: 2rem;
+    height: 93px;    
 }
 
 mat-list {
-    max-height: 400px;
+    max-height: 380px;
     overflow-y: auto;
     padding: 0 10px;
 }
 
 h2{
     text-align: center;
+}
+
+img{
+    height: 80px;
+    width: 40px;
+}
+
+.list-item-holder{
+    height: 93px;    
 }

@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { take } from 'rxjs/operators';
-import { InstallPromptComponent } from 'common-lib';
+import { AlertData, AlertResponseEnum, HelperService, InstallPromptComponent } from 'common-lib';
 import { timer } from 'rxjs';
+import { SwUpdate } from '@angular/service-worker';
 
 
 @Injectable({
@@ -16,18 +17,21 @@ export class PwaService {
 
   constructor(
     private bottomSheet: MatBottomSheet,
-    private platform: Platform
+    private platform: Platform,
+    private swUpdate: SwUpdate,
+    private helperSvc: HelperService
   ) {}
 
   public initPwaPrompt() {
+    
     if (this.platform.ANDROID) {
-      console.log('step2');
       window.addEventListener('beforeinstallprompt', (promptEvent: any) => {
         promptEvent.preventDefault();
         this.promptEvent = promptEvent;
         this.currentType = 'android';
       });
     }
+
     if (this.platform.IOS) {
       let trick: any;
       trick = window.navigator;
@@ -42,6 +46,23 @@ export class PwaService {
   public showDialog() {    
     if (this.currentType && ( (this.currentType==='android' && this.promptEvent) || this.currentType==='ios')) {
       this.openPromptComponent(this.currentType);
+    }
+  }
+
+  public detectUpdates(): void {
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.available.subscribe(async () => {
+        const response = await this.helperSvc.displayDialog(
+          {
+            title: 'Update Available',
+            message: 'A new version of this app is available. Do you want to update now?',
+            showYesNo: true
+        } as AlertData
+          );
+        if (response === AlertResponseEnum.YES) {
+          window.location.reload();
+        }
+      });
     }
   }
 

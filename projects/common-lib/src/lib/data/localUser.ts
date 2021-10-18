@@ -3,4 +3,5 @@ export interface LocalUser{
     username: string;
     email: string;
     pictureUrl: string;
+    fcmTokens: any
 }

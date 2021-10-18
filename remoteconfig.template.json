@@ -1,0 +1,35 @@
+{
+  "conditions": [
+    {
+      "name": "All clients",
+      "expression": "device.os == 'web'",
+      "tagColor": "GREEN"
+    }
+  ],
+  "parameters": {
+    "allowMailLogin": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "conditionalValues": {
+        "All clients": {
+          "value": "false"
+        }
+      },
+      "description": "Display or not the dialog to allow user login via email and password",
+      "valueType": "BOOLEAN"
+    },
+    "hideMailLogin": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "conditionalValues": {
+        "All clients": {
+          "value": "true"
+        }
+      },
+      "description": "Hide or not the e-mail and password login form",
+      "valueType": "BOOLEAN"
+    }
+  }
+}

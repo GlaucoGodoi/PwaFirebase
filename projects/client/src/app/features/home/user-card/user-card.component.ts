@@ -5,7 +5,7 @@ import { AuthService } from 'common-lib';
   selector: 'cli-user-card',
   template: `
     <div>
-      <img src="{{(authSvc.userPicture|async)}}" alt="user image">
+      <img src="{{(authSvc.userPicture|async)}}" referrerpolicy="no-referrer" alt="user image">
       <p>{{authSvc.userName|async}}</p>
     </div>
   `,

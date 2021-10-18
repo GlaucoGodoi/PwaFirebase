@@ -1,4 +1,6 @@
+import { Timestamp } from "@firebase/firestore";
 export interface Reading {
-    readingDate: Date;
-    value: number    
+    readingDate: Timestamp;
+    value: number;
+    image: string;
 }

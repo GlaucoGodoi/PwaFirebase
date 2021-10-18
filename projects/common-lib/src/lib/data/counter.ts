@@ -1,10 +1,14 @@
+import { Timestamp } from "@firebase/firestore";
 import { Reading } from "./reading";
 
 export interface Counter {
+    ownerId: string,
+    id: string;
     name: string;
-    lastRead: Date;
+    lastRead: Timestamp;
     lastValue: number;
-    nextRead: Date;
+    nextRead: Timestamp;
+    frequency: number;
 
     readings: Reading[];
 }

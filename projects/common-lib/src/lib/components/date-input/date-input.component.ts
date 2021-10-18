@@ -3,6 +3,7 @@ import { BooleanInput, coerceBooleanProperty } from "@angular/cdk/coercion";
 import { ChangeDetectionStrategy, Component, ElementRef, Inject, Input, OnDestroy, OnInit, Optional, Self, ViewChild } from "@angular/core";
 import { AbstractControl, ControlValueAccessor, FormBuilder, FormGroup, NgControl, Validators } from "@angular/forms";
 import { MatFormField, MatFormFieldControl, MAT_FORM_FIELD } from "@angular/material/form-field";
+import { Timestamp } from "@firebase/firestore";
 import { Subject, Subscription } from "rxjs";
 
 @Component({
@@ -16,7 +17,7 @@ import { Subject, Subscription } from "rxjs";
   },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DateInputComponent implements ControlValueAccessor, MatFormFieldControl<Date>, OnInit, OnDestroy {
+export class DateInputComponent implements ControlValueAccessor, MatFormFieldControl<Timestamp>, OnInit, OnDestroy {
 
   private static nextId = 0;
   private readonly componentSelector = `lib-date-input`;
@@ -102,26 +103,27 @@ export class DateInputComponent implements ControlValueAccessor, MatFormFieldCon
   }
 
   @Input()
-  public get value(): Date | null {
+  public get value(): Timestamp | null {
     const ret = this.assembleDate();
-    return ret;
+    return ret ? Timestamp.fromDate(ret) : null;
   }
-  public set value(newDate: Date | null) {
 
-    this.date.setValue(newDate);
+  public set value(newDate: Timestamp | null) {
+
+    this.date.setValue(newDate?.toDate());
 
     if (this.localUseTime) {
-      this.hour.setValue(newDate?.getHours());
+      this.hour.setValue(newDate?.toDate().getHours());
       if (this.localUseTen) {
         this.minute.setValue(this.getNearestTen(newDate));
-        if(newDate?.getMinutes()!==0 && this.minute.value===0){
-            this.hour.setValue(this.hour.value+1);
-            if(this.hour.value>=23){
-                this.hour.setValue(0);
-            }
+        if (newDate?.toDate().getMinutes() !== 0 && this.minute.value === 0) {
+          this.hour.setValue(this.hour.value + 1);
+          if (this.hour.value >= 23) {
+            this.hour.setValue(0);
+          }
         }
       } else {
-        this.minute.setValue(newDate?.getMinutes());
+        this.minute.setValue(newDate?.toDate().getMinutes());
       }
     }
 
@@ -165,7 +167,8 @@ export class DateInputComponent implements ControlValueAccessor, MatFormFieldCon
   public ngOnInit(): void {
     this.subs.push(this.internalForm.valueChanges.subscribe(() => {
       const date = this.assembleDate();
-      this.onChange(date);
+      const temp = Timestamp.fromDate(date || new Date());
+      this.onChange(date ? Timestamp.fromDate(date) : null);
     }));
   }
 
@@ -220,7 +223,7 @@ export class DateInputComponent implements ControlValueAccessor, MatFormFieldCon
     }
   }
 
-  public writeValue(newDate: Date | null): void {
+  public writeValue(newDate: Timestamp | null): void {
     this.value = newDate;
   }
 
@@ -259,27 +262,29 @@ export class DateInputComponent implements ControlValueAccessor, MatFormFieldCon
     if (!this.date.value) {
       return null;
     }
-
+    
     if (!this.localUseTime) {
       ret = this.date.value;
     } else {
       const day = this.date.value?.day || 1;
-      const month = this.date.value?.month || 1;
+      const  month = this.date.value?.month - 1 || 1;
       const year = this.date.value?.year || 1900;
       const hour = this.hour?.value || 0;
       const minute = this.minute?.value || 0;
+
+      
       const newDate = new Date(year, month, day, hour, minute);
       ret = newDate;
     }
     return ret;
   }
 
-  private getNearestTen(value: Date | null): number {
-    if(value===null){
+  private getNearestTen(value: Timestamp | null): number {
+    if (value === null) {
       return 0;
     }
     const coefficient = 1000 * 60 * 10; //Select only 10 minutes
-    const rounded = new Date(Math.round(value.getTime() / coefficient) * coefficient)
+    const rounded = new Date(Math.round(value.toDate().getTime() / coefficient) * coefficient)
     const minutes = rounded.getMinutes();
     return minutes;
   }

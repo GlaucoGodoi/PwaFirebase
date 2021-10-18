@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertData, GenericResponse, HelperService, InputTypeEnum, Reading, ReadingService } from 'common-lib';
+import { AlertData, AnalyticsService, GenericResponse, HelperService, InputTypeEnum, Reading, ReadingService } from 'common-lib';
 import { Location } from '@angular/common'
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 import { WebcamImage } from 'ngx-webcam';
 import { BehaviorSubject } from 'rxjs';
+import { Timestamp } from '@firebase/firestore';
 
 @Component({
   selector: 'cli-edit-reading-page',
@@ -26,7 +27,7 @@ import { BehaviorSubject } from 'rxjs';
           <img style="width: 100%;" [src]="imageAsUrl|async"/>
 
           <lib-text-input [formElement]="value" [inputType]="type" hint="The value that will be added to historic data" label="New value" required="true"></lib-text-input>            
-          <lib-date-input formControlName="readingDate" title="Reading date" usetime="true" usetenminutes="true"  ></lib-date-input>
+          <lib-date-input placeholder="Reading date" formControlName="readingDate" title="Reading date" usetime="true" usetenminutes="true"  ></lib-date-input>
 
         </fieldset>
         </mat-card-content>
@@ -54,13 +55,13 @@ export class EditReadingPageComponent implements OnInit {
     private location: Location,
     private helperSvc: HelperService,
     private fb: FormBuilder,
-    private cd: ChangeDetectorRef,
+    //private cd: ChangeDetectorRef,
   ) { }
 
   public async ngOnInit(): Promise<void> {
     
     this.localForm = this.fb.group({
-      readingDate: [new Date(), [Validators.required]],
+      readingDate: [Timestamp.fromDate(new Date()), [Validators.required]],
       value: [null, [Validators.required]]
     });
 
@@ -82,6 +83,8 @@ export class EditReadingPageComponent implements OnInit {
     if (this.readingSvc.selectedReading) {
       this.action = 'Edit';
     }
+
+    AnalyticsService.LogEvent('Reading-Edit', 'Enter');
   }
 
 
@@ -95,14 +98,16 @@ export class EditReadingPageComponent implements OnInit {
 
   public async handleSave(): Promise<void> {
     this.isBusy = true;
-    const response = await this.readingSvc.save(this.localForm.getRawValue() as Reading);
+    const response = await this.readingSvc.saveReadingAndUpdateCounter(this.localForm.getRawValue() as Reading,this.imageAsUrl.value);
     this.isBusy = false;
-    this.cd.markForCheck();
+    //this.cd.markForCheck();
 
     if (response.success) {
-      this.helperSvc.showSnackBar('Reading saved');
+      this.helperSvc.showSnackBar(response.message);
       this.location.back();
     }
+
+    AnalyticsService.LogEvent('Reading-Edit', 'Save');
   }
 
   public async handleCamera(): Promise<void> {

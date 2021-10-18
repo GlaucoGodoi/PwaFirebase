@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Counter, CountersService } from 'common-lib';
+import { AnalyticsService, AuthService, Counter, CountersService } from 'common-lib';
 
 @Component({
   selector: 'cli-edit-counter-page',
@@ -17,8 +17,9 @@ import { Counter, CountersService } from 'common-lib';
         
           <fieldset [formGroup]="localForm">          
             <lib-text-input [formElement]="name" hint="Counter's name" label="Counter name" maxLen="25" minLen="3" required="true"></lib-text-input>            
-            <lib-date-input formControlName="nextRead" label="Next read" hint="The next reading for this counter" usetime="true" usetenminutes="false" required="true"></lib-date-input>
-            <lib-date-input formControlName="lastRead" label="Last read" hint="The last reading for this counter" usetime="true" usetenminutes="true" readonly="true"></lib-date-input>
+            <lib-date-input formControlName="nextRead" label="Next read" placeholder="Next reading" hint="The next reading for this counter" usetime="true" usetenminutes="false" required="true"></lib-date-input>
+            <lib-text-input [formElement]="frequency" label="Reading frequency" hint="Reading frequency in days" required="true"></lib-text-input>
+            <lib-date-input formControlName="lastRead" label="Last read" placeholder="Last reading" hint="The last reading for this counter" usetime="true" usetenminutes="true" readonly="true"></lib-date-input>
             <lib-text-input [formElement]="lastValue" label="Last value" hint="The last value read"></lib-text-input>
           </fieldset>
 
@@ -43,16 +44,19 @@ export class EditCounterPageComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private snackBar: MatSnackBar,
-    private cd: ChangeDetectorRef
+    private authSvc: AuthService
   ) { }
 
   ngOnInit(): void {
 
     this.localForm = this.fb.group({
-      name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],      
+      ownerId: [this.authSvc.userId],
+      id: [null],
+      name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
       lastValue: { value: null, disabled: true },
       nextRead: [null, [Validators.required]],
-      lastRead: { value: null, disabled: true }
+      lastRead: { value: null, disabled: true },
+      frequency: [1, [Validators.required, Validators.min(1), Validators.max(60)]]
     });
 
     if (this.countersSvc.selectedCounter) {
@@ -62,19 +66,21 @@ export class EditCounterPageComponent implements OnInit {
 
   }
 
-  public async handleSave(): Promise<void> {    
+  public async handleSave(): Promise<void> {
     this.isBusy = true;
-    
-    const response = await this.countersSvc.save(this.localForm.getRawValue() as Counter);    
-    this.isBusy = false;    
-    this.cd.detectChanges();
+    const tempRecord = this.localForm.getRawValue() as Counter
+    tempRecord.frequency = Number(tempRecord.frequency);
+    const response = await this.countersSvc.saveRecord(tempRecord, tempRecord.id);
+    this.isBusy = false;
 
-    if(response.success) {  
-      this.snackBar.open('Counter saved', 'OK',{duration:3000 } as MatSnackBarConfig);
+
+    if (response.success) {
+      this.snackBar.open('Counter saved', 'OK', { duration: 3000 } as MatSnackBarConfig);
       setTimeout(() => {
-        this.router.navigate(['/home/counters']);  
+        this.router.navigate(['/home/counters']);
       }, 700);
     }
+    AnalyticsService.LogEvent('Counter', 'Saved');
   }
 
   public handleCancel(): void {
@@ -97,6 +103,9 @@ export class EditCounterPageComponent implements OnInit {
     return this.localForm.controls['lastValue'];
   }
 
-  
+  public get frequency(): AbstractControl {
+    return this.localForm.controls['frequency'];
+  }
+
 
 }

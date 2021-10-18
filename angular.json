@@ -83,7 +83,10 @@
             "assets": [
               "projects/client/src/favicon.ico",
               "projects/client/src/assets",
-              "projects/client/src/manifest.webmanifest"
+              "projects/client/src/manifest.webmanifest",
+
+              "projects/client/src/combined-sw.js",
+              "projects/client/src/firebase-messaging-sw.js"
             ],
             "styles": [
               "projects/client/src/styles.scss",
@@ -100,7 +103,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
