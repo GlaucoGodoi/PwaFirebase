@@ -12,7 +12,8 @@
 
 # profiling files
 chrome-profiler-events*.json
-
+PRD-utility-reader-b007170a4fe9.json
+utilities-counter-firebase-adminsdk-g0kvw-14b1eecf64.json
 # IDEs and editors
 /.idea
 .project
